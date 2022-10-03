@@ -93,11 +93,18 @@
             </el-select>
             <el-date-picker
                 v-model="date"
+                v-if="reportType==='month'"
                 type="month"
                 placeholder="选择月份"
                 @change="changeDate"
-            >
-            </el-date-picker>
+            />
+            <el-date-picker
+                      v-model="date"
+                      v-else
+                      type="year"
+                      placeholder="选择年份"
+                      @change="changeDate"
+            />
           </div>
           <router-view />
         </Layout>
