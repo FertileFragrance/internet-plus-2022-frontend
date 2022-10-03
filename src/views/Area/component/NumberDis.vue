@@ -1,20 +1,21 @@
 <template>
   <div>
-    <h2 class="title">01 全国罚单数量分布</h2>
-    <div class="content">
+    <h2 >01、全国罚单数量分布</h2>
+    <br>
+    <div class="content" style="font-size: 14px">
       罚单数量在全国区域分布，主要集中在<span style="color: red">{{
         first
       }}</span
-      >、<span style="color: red">{{ second }}</span
-      >等，其中{{ first }}罚单数量最多，累计<span style="color: red">{{
+    >、<span style="color: red">{{ second }}</span
+    >等，其中{{ first }}罚单数量最多，累计<span style="color: red">{{
         count
       }}</span
-      >张罚单。
+    >张罚单。
     </div>
     <div class="chart-container">
       <div
-        id="chinaCount"
-        style="height: 600px; width: 600px; margin: auto"
+          id="chinaCount"
+          style="height: 600px; width: 600px; margin: auto"
       ></div>
     </div>
   </div>

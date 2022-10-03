@@ -28,6 +28,10 @@
   background: #fff;
   overflow: auto;
 }
+.box{
+  margin: 0 auto;
+  padding-top: 10px;
+}
 </style>
 <template>
   <div class="layout">
@@ -77,6 +81,24 @@
           </el-menu>
         </Sider>
         <Layout :style="{padding: '0 24px 24px'}" v-loading="loading">
+          <div class="box">
+            <el-select
+                v-model="reportType"
+                @change="changeReportType"
+                placeholder="请选择"
+                style="margin: 5px"
+            >
+              <el-option label="月度报告" value="month"> </el-option>
+              <el-option label="年度报告" value="year"> </el-option>
+            </el-select>
+            <el-date-picker
+                v-model="date"
+                type="month"
+                placeholder="选择月份"
+                @change="changeDate"
+            >
+            </el-date-picker>
+          </div>
           <router-view />
         </Layout>
       </Layout>

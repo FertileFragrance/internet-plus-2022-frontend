@@ -16,6 +16,20 @@ const routes = [
         component: () => import("@/components/PenaltyManage"),
       },
       {
+        //监管动态
+        path: "/trend",
+        name: "trend",
+        component: () => import("@/views/Trend/Trend"),
+      },
+    ],
+  },
+  {
+    path: "/layout2",
+    name: "layout2",
+    component: () => import("@/components/Layout2"),
+    redirect: "/penalty",
+    children: [
+      {
         //全国区域分析
         path: "/area",
         name: "Area",
@@ -39,12 +53,6 @@ const routes = [
         name: "Violation",
         component: () => import("@/views/Violation/Violation"),
       },
-      {
-        //监管动态
-        path: "/trend",
-        name: "trend",
-        component: () => import("@/views/Trend/Trend"),
-      },
     ],
   },
   {
@@ -53,11 +61,11 @@ const routes = [
   },
 ];
 const createRouter = () =>
-  new VueRouter({
-    // mode: 'history', // require service support
-    scrollBehavior: () => ({ y: 0 }),
-    routes,
-  });
+    new VueRouter({
+      // mode: 'history', // require service support
+      scrollBehavior: () => ({ y: 0 }),
+      routes,
+    });
 const router = createRouter();
 
 export function resetRouter() {

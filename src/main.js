@@ -6,6 +6,8 @@ import AFTableColumn from "af-table-column";
 import router from "./router";
 import * as echarts from "echarts";
 import store from "./store";
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
 //注入echarts全局
 Vue.prototype.$echarts = echarts;
 
@@ -13,6 +15,8 @@ Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
 Vue.use(AFTableColumn);
+Vue.use(iView);
+
 
 new Vue({
   router,

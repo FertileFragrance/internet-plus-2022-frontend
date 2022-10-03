@@ -1,10 +1,22 @@
 <template>
   <div>
-    <h1 class="title">二、全国区域分析</h1>
-    <number-dis />
-    <amount-dis />
-    <statistic />
-    <detail />
+    <Breadcrumb :style="{margin: '24px 0'}">
+      <BreadcrumbItem>分析查询</BreadcrumbItem>
+      <BreadcrumbItem>全国区域分析</BreadcrumbItem>
+    </Breadcrumb>
+    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}" >
+
+      <h1 class="title" style="font-size: 40px">二、全国区域分析</h1>
+      <br>
+      <number-dis />
+      <br>
+      <amount-dis />
+      <br>
+      <statistic />
+      <br>
+      <detail />
+      <br>
+    </Content>
   </div>
 </template>
 <script>

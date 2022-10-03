@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1 class="title">02 全国罚单金额分布</h1>
-    <div class="content">
+    <h1 >02、全国罚单金额分布</h1>
+    <br>
+    <div class="content" style="font-size: 14px">
       罚没金额在全国区域分布，主要集中在
       <span style="color: red">{{ first }}、 {{ second }}</span
       >， 其中<span style="color: red">{{ first }}</span
-      >罚没金额最高，高达<span style="color: red">{{ amount }}</span
-      >万元。
+    >罚没金额最高，高达<span style="color: red">{{ amount }}</span
+    >万元。
     </div>
     <div>
       <div id="china" style="height: 600px; width: 600px; margin: auto"></div>

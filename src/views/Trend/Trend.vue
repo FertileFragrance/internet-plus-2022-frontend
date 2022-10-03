@@ -1,22 +1,29 @@
 <template>
   <div>
-    <h1 style="text-align: center">全国范围趋势分析</h1>
-    <div class="chart-container">
-      <div
-        id="chart-line"
-        style="width: 900px; height: 600px; margin: auto"
-      ></div>
-    </div>
-    <div style="display: flex; justify-content: center">
-      <el-date-picker
-        v-model="range"
-        type="monthrange"
-        range-separator="至"
-        start-placeholder="开始月份"
-        end-placeholder="结束月份"
-      >
-      </el-date-picker>
-    </div>
+    <Breadcrumb :style="{margin: '24px 0'}">
+      <BreadcrumbItem>分析查询</BreadcrumbItem>
+      <BreadcrumbItem>趋势分析</BreadcrumbItem>
+    </Breadcrumb>
+    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}" >
+
+      <h1 style="text-align: center">全国范围趋势分析</h1>
+      <div class="chart-container">
+        <div
+            id="chart-line"
+            style="width: 900px; height: 600px; margin: auto"
+        ></div>
+      </div>
+      <div style="display: flex; justify-content: center">
+        <el-date-picker
+            v-model="range"
+            type="monthrange"
+            range-separator="至"
+            start-placeholder="开始月份"
+            end-placeholder="结束月份"
+        >
+        </el-date-picker>
+      </div>
+    </Content>
   </div>
 </template>
 <script>
@@ -147,7 +154,7 @@ export default {
     },
     initChartLine() {
       this.chartLine = this.$echarts.init(
-        document.getElementById("chart-line")
+          document.getElementById("chart-line")
       );
     },
   },

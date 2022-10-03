@@ -1,54 +1,55 @@
 <template>
   <div>
-    <h2 class="title">03 直辖市/省罚单统计分布</h2>
-    <div class="content">
+    <h2 >03、直辖市/省罚单统计分布</h2>
+    <br>
+    <div class="content" style="font-size: 14px">
       <span style="color: red">{{ countWinner.province }}</span
       >罚单数量最多，罚单<span style="color: red">{{ countWinner.count }}</span
-      >张，占比<span style="color: red">{{ countWinner.countRatio }}</span
-      >%。
+    >张，占比<span style="color: red">{{ countWinner.countRatio }}</span
+    >%。
     </div>
-    <div class="content">
+    <div class="content" style="font-size:14px">
       <span style="color: red">{{ amountWinner.province }}</span
       >罚没金额最高，高达<span style="color: red">{{
         amountWinner.amount
       }}</span
-      >万元，占比<span style="color: red">{{ amountWinner.amountRatio }}</span
-      >%。
+    >万元，占比<span style="color: red">{{ amountWinner.amountRatio }}</span
+    >%。
     </div>
     <el-table :data="countTableData">
       <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column prop="province" label="省/直辖市"></el-table-column>
       <el-table-column
-        prop="count"
-        label="罚单笔数(笔)"
-        sortable
+          prop="count"
+          label="罚单笔数(笔)"
+          sortable
       ></el-table-column>
       <el-table-column
-        prop="countRatio"
-        label="罚单笔数占比(%)"
+          prop="countRatio"
+          label="罚单笔数占比(%)"
       ></el-table-column>
       <el-table-column
-        prop="amount"
-        label="罚没金额(万元)"
-        sortable
+          prop="amount"
+          label="罚没金额(万元)"
+          sortable
       ></el-table-column>
       <el-table-column
-        prop="amountRatio"
-        label="罚没金额占比%"
+          prop="amountRatio"
+          label="罚没金额占比%"
       ></el-table-column>
       <el-table-column
-        prop="amountOrganization"
-        label="机构罚没金额(万元)"
-        sortable
+          prop="amountOrganization"
+          label="机构罚没金额(万元)"
+          sortable
       ></el-table-column>
       <el-table-column
-        prop="amountPersonal"
-        label="个人罚没金额(万元)"
-        sortable
+          prop="amountPersonal"
+          label="个人罚没金额(万元)"
+          sortable
       ></el-table-column>
       <el-table-column
-        prop="countOrganization"
-        label="处罚机构数"
+          prop="countOrganization"
+          label="处罚机构数"
       ></el-table-column>
       <el-table-column prop="countPersonal" label="处罚人数"></el-table-column>
     </el-table>
@@ -83,7 +84,7 @@ export default {
         item.count = Number(item.count);
         item.amount = Number((item.amount / 10000).toFixed(2));
         item.amountOrganization = Number(
-          (item.amountOrganization / 10000).toFixed(2)
+            (item.amountOrganization / 10000).toFixed(2)
         );
         item.amountPersonal = Number((item.amountPersonal / 10000).toFixed(2));
       }
