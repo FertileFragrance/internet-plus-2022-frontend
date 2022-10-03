@@ -17,7 +17,7 @@
         <el-date-picker
             v-model="range"
             type="monthrange"
-            range-separator="至"
+            range-separator="-"
             start-placeholder="开始月份"
             end-placeholder="结束月份"
         >

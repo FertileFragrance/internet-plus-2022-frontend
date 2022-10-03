@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 >01、全国罚单数量分布</h2>
+    <h1>01、全国罚单数量分布</h1>
     <br>
     <div class="content" style="font-size: 14px">
       罚单数量在全国区域分布，主要集中在<span style="color: red">{{

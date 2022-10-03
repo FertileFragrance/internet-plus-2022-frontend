@@ -6,7 +6,7 @@
     </Breadcrumb>
     <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}" >
 
-      <h1 class="title" style="font-size: 40px">二、全国区域分析</h1>
+      <h1 class="title" style="font-size: 40px">全国区域分析</h1>
       <br>
       <number-dis />
       <br>

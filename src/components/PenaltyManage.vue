@@ -71,9 +71,9 @@
             </el-select>
           </el-form-item>
         </el-form>
-        <Button @click="searchByName" type="primary" icon="ios-search" style="margin: 5px">Search</Button>
+        <Button @click="searchByName" type="primary" icon="ios-search" style="margin: 5px">查询</Button>
         <!--      <el-button @click="searchByName" size="mini">查询</el-button>-->
-        <Button @click="resetSearch" type="primary" >Reset</Button>
+        <Button @click="resetSearch" type="primary" >重置</Button>
 
         <!--      <el-button @click="resetSearch" size="mini">Reset</el-button>-->
       </div>
