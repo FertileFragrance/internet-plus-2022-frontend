@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 >04、全国单张大额罚单详情</h2>
+    <h1 >04、全国单张大额罚单详情</h1>
     <br>
     <div class="content" style="font-size: 14px">
       <span style="color: red">{{ first.name }}</span
