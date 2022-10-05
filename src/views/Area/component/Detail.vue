@@ -65,7 +65,7 @@ export default {
             alignWithLabel: true
           },
           axisLabel: {
-            color: "rgba(255,255,255,.6)",
+            color: "rgba(255,255,255,.7)",
             fontSize: "12"
           },
 
@@ -123,7 +123,43 @@ export default {
   },
   watch:{
     areaDetail(data){
-      console.log(data)
+      //
+      // let name = data.map((value) => ({
+      //   name: value.name,
+      // }));
+      // let value = data.map((value) => ({
+      //   value: value.fine,
+      // }));
+      // this.xData =name
+      // console.log(this.xData)
+      // this.yData = value
+      // console.log(this.yData)
+      //
+      // for(let i= 0 ; i<name.length ; i++){
+      //   name[i] = name[i]['name'];
+      // }
+      // console.log(name)
+      //
+      // this.chart = echarts.init(document.getElementById("myChart"))
+      // this.option.xAxis.data = name
+      // this.option.series[0].data = this.yData
+      // this.chart.setOption(this.option)
+      let newPromise = new Promise((resolve) => {
+        resolve()
+      })
+      //然后异步执行echarts的初始化函数
+      newPromise.then(() => {
+        //	此dom为echarts图标展示dom
+        this.setNumChart(data);
+      })
+
+    }
+  },
+
+  methods: {
+    ...mapActions(["getDetail"]),
+
+    setNumChart(data){
 
       let name = data.map((value) => ({
         name: value.name,
@@ -145,82 +181,6 @@ export default {
       this.option.xAxis.data = name
       this.option.series[0].data = this.yData
       this.chart.setOption(this.option)
-    }
-  },
-
-  methods: {
-    ...mapActions(["getDetail"]),
-
-    setNumChart(val){
-      const temp = val.map((value) => ({
-        name: value.name,
-        value: value.fine,
-      }));
-      console.log(this.tableDetail)
-      const chart = this.$echarts.init(document.getElementById("myChart"));
-      const option = {
-        title: {
-          text: "单笔罚单总金额",
-          left: "center",
-          top: "center",
-        },
-        tooltip: {
-          trigger: "axis",
-          axisPointer:{
-            type: "shadow"
-          }
-        },
-        xAxis: [
-          {
-            type: "category",
-            data: temp.name,
-            axisTick: {
-              alignWithLabel: true
-            },
-            axisLabel: {
-              color: "rgba(255,255,255,.6)",
-              fontSize: "12"
-            },
-            axisLine: {
-              show: false
-            }
-          }
-        ],
-        yAxis: [
-          {
-            type: "value",
-            splitLine: {
-              axisLabel: {
-                color: "rgba(255,255,255,.6)",
-                fontSize: "12"
-              },
-              axisLine: {
-                lineStyle: {
-                  color: "rgba(255,255,255,.1)"
-                }
-              },
-              LineStyle: {
-                color: "rgba(255,255,255,.1)"
-              }
-            }
-          }
-        ],
-        series: [
-          {
-            type: "bar",
-            barWidth: "35%",
-            data: temp.fine,
-            itemStyle: {
-              barBorderRadius: 5
-            }
-          },
-        ],
-      };
-      chart.setOption(option);
-
-      window.addEventListener("resize", function() {
-        chart.resize();
-      });
     }
   },
 };
