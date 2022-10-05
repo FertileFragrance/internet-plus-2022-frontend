@@ -37,6 +37,7 @@ export default {
   },
   watch: {
     area: function () {
+      //console.log(this.area)
       const data = this.area.map((value) => {
         return { name: value.province, value: this.handleValue(value.count) };
       });
@@ -47,10 +48,10 @@ export default {
       this.second = data[1] && data[1].name;
       this.count = data[0] && data[0].value;
       if (!this.myChartChina) {
-        console.log("init china");
+        //console.log("init china");
         this.initChina();
       }
-      console.log("nubmer dis data", data);
+      //console.log("nubmer dis data", data);
       this.setOption(data);
     },
   },

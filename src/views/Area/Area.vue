@@ -25,8 +25,6 @@ import Detail from "./component/Detail.vue";
 import NumberDis from "./component/NumberDis.vue";
 import Statistic from "./component/Statistic.vue";
 import { mapActions, mapState } from "vuex";
-//TODO
-// author: 魏
 
 export default {
   components: {

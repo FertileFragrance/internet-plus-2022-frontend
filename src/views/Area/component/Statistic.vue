@@ -111,6 +111,7 @@ export default {
   },
   watch: {
     area(newVal) {
+      //console.log(newVal)
       this.setNumberPie(newVal);
       this.setAmountPie(newVal);
     },

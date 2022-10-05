@@ -7,23 +7,30 @@
       >单笔处罚金额最高，罚款金额高达{{ first.fine }}万元，罚单由<span
         style="color: red"
     >{{ first.organName }}</span
-    >开出。主要违规问题为：{{ first.basis }}
+    >开出。
     </div>
     <div class="content" style="font-size: 14px">
       <span style="color: red">{{ second.name }}</span
       >单笔处罚金额最高，罚款金额高达{{ second.fine }}万元，罚单由<span
         style="color: red"
     >{{ second.organName }}</span
-    >开出。主要违规问题为：{{ second.basis }}
+    >开出。
     </div>
     <div class="content" style="font-size: 14px">
       <span style="color: red">{{ third.name }}</span
       >单笔处罚金额最高，罚款金额高达{{ third.fine }}万元，罚单由<span
         style="color: red"
     >{{ third.organName }}</span
-    >开出。主要违规问题为：{{ third.basis }}
+    >开出。
     </div>
+    <br>
+    <div>
+      <div id="myChart" style="width:100%;height:500px;margin: 5px" >
+      </div>
+    </div>
+
     <h3 class="title">其他的大额罚单</h3>
+
     <el-table :data="tableDetail">
       <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column prop="fine" label="罚没金额(万元)"></el-table-column>
@@ -35,13 +42,67 @@
 </template>
 <script>
 import { mapActions, mapState } from "vuex";
+import * as echarts from "echarts";
 export default {
   data() {
-    return {};
+    return {
+      yData:[],
+      xData:[],
+      option: {
+        title: {
+          text: "单笔处罚金额"
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer:{
+            type: "shadow"
+          }
+        },
+        xAxis: {
+          type: 'category',
+          data: [],
+          axisTick: {
+            alignWithLabel: true
+          },
+          axisLabel: {
+            color: "rgba(255,255,255,.6)",
+            fontSize: "12"
+          },
+
+        },
+        yAxis: {
+          type: 'value',
+          splitLine: {
+            axisLabel: {
+              color: "rgba(255,255,255,.6)",
+              fontSize: "12"
+            },
+            axisLine: {
+              lineStyle: {
+                color: "rgba(255,255,255,.1)"
+              }
+            },
+            LineStyle: {
+              color: "rgba(255,255,255,.1)"
+            }
+          }
+        },
+        series: [
+          {
+            name: '金额',
+            type: 'bar',
+            data: []
+          }
+        ]
+      },
+      chart: {}
+    };
   },
+
   computed: {
     ...mapState(["areaDetail"]),
     tableDetail() {
+      //console.log(this.areaDetail);
       if (!this.areaDetail) return [];
       let temp = JSON.parse(JSON.stringify(this.areaDetail));
       for (let item of temp) {
@@ -60,8 +121,107 @@ export default {
       return this.tableDetail && this.tableDetail[2];
     },
   },
+  watch:{
+    areaDetail(data){
+      console.log(data)
+
+      let name = data.map((value) => ({
+        name: value.name,
+      }));
+      let value = data.map((value) => ({
+        value: value.fine,
+      }));
+      this.xData =name
+      console.log(this.xData)
+      this.yData = value
+      console.log(this.yData)
+
+      for(let i= 0 ; i<name.length ; i++){
+        name[i] = name[i]['name'];
+      }
+      console.log(name)
+
+      this.chart = echarts.init(document.getElementById("myChart"))
+      this.option.xAxis.data = name
+      this.option.series[0].data = this.yData
+      this.chart.setOption(this.option)
+    }
+  },
+
   methods: {
     ...mapActions(["getDetail"]),
+
+    setNumChart(val){
+      const temp = val.map((value) => ({
+        name: value.name,
+        value: value.fine,
+      }));
+      console.log(this.tableDetail)
+      const chart = this.$echarts.init(document.getElementById("myChart"));
+      const option = {
+        title: {
+          text: "单笔罚单总金额",
+          left: "center",
+          top: "center",
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer:{
+            type: "shadow"
+          }
+        },
+        xAxis: [
+          {
+            type: "category",
+            data: temp.name,
+            axisTick: {
+              alignWithLabel: true
+            },
+            axisLabel: {
+              color: "rgba(255,255,255,.6)",
+              fontSize: "12"
+            },
+            axisLine: {
+              show: false
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: "value",
+            splitLine: {
+              axisLabel: {
+                color: "rgba(255,255,255,.6)",
+                fontSize: "12"
+              },
+              axisLine: {
+                lineStyle: {
+                  color: "rgba(255,255,255,.1)"
+                }
+              },
+              LineStyle: {
+                color: "rgba(255,255,255,.1)"
+              }
+            }
+          }
+        ],
+        series: [
+          {
+            type: "bar",
+            barWidth: "35%",
+            data: temp.fine,
+            itemStyle: {
+              barBorderRadius: 5
+            }
+          },
+        ],
+      };
+      chart.setOption(option);
+
+      window.addEventListener("resize", function() {
+        chart.resize();
+      });
+    }
   },
 };
 </script>

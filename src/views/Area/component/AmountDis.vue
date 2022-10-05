@@ -80,7 +80,7 @@ export default {
       this.$echarts.registerMap("china", chinaJson);
     },
     setChart(data) {
-      console.log("amount data", data);
+      //console.log("amount data", data);
       var optionMap = {
         tooltip: {
           trigger: "item",
