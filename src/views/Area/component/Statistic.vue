@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 >03、直辖市/省罚单统计分布</h2>
+    <h1 >03、直辖市/省罚单统计分布</h1>
     <br>
     <div class="content" style="font-size: 14px">
       <span style="color: red">{{ countWinner.province }}</span
@@ -11,11 +11,24 @@
     <div class="content" style="font-size:14px">
       <span style="color: red">{{ amountWinner.province }}</span
       >罚没金额最高，高达<span style="color: red">{{
-        amountWinner.amount
+        amountWinner.amount/10000
       }}</span
     >万元，占比<span style="color: red">{{ amountWinner.amountRatio }}</span
     >%。
     </div>
+
+   <div>
+    <div
+            id="number-pie"
+            style="height: 600px; width: 400px; margin-left: 10%;float: left"
+    ></div>
+
+    <div
+            id="amount-pie"
+            style="height: 600px; width: 400px; margin-right: 10%;float: right"
+    ></div>
+   </div>
+
     <el-table :data="countTableData">
       <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column prop="province" label="省/直辖市"></el-table-column>
@@ -73,9 +86,14 @@ export default {
     },
     amountWinner: function () {
       if (this.area.length === 0) return {};
-      const winner = this.area.reduce((pre, cur) => {
-        return pre.amount > cur.amount ? pre : cur;
+      // var winner = this.area.reduce((pre, cur) => {
+      //   return pre.amount > cur.amount ? pre : cur;
+      // });
+      var areaSort = JSON.parse(JSON.stringify(this.area));
+      areaSort.sort((a, b) => {
+        return b.amount - a.amount;
       });
+      const winner = areaSort[0];
       return winner;
     },
     countTableData: function () {
@@ -91,6 +109,65 @@ export default {
       return temp;
     },
   },
+  watch: {
+    area(newVal) {
+      this.setNumberPie(newVal);
+      this.setAmountPie(newVal);
+    },
+  },
+  methods: {
+    setNumberPie(data) {
+      const temp = data.map((value) => ({
+        name: value.province,
+        value: value.countRatio,
+      }));
+      const pie = this.$echarts.init(document.getElementById("number-pie"));
+      const option = {
+        title: {
+          text: "罚单笔数占比(%)",
+          left: "center",
+          top: "center",
+        },
+        tooltip: {
+          trigger: "item",
+        },
+        series: [
+          {
+            type: "pie",
+            data: temp,
+            radius: ["40%", "70%"],
+          },
+        ],
+      };
+      pie.setOption(option);
+    },
+    setAmountPie(data) {
+      const temp = data.map((value) => ({
+        name: value.province,
+        value: value.amountRatio,
+      }));
+      const pie = this.$echarts.init(document.getElementById("amount-pie"));
+      const option = {
+        title: {
+          text: "罚没金额占比(%)",
+          left: "center",
+          top: "center",
+        },
+        tooltip: {
+          trigger: "item",
+        },
+        series: [
+          {
+            type: "pie",
+            data: temp,
+            radius: ["40%", "70%"],
+          },
+        ],
+      };
+      pie.setOption(option);
+    },
+  }
+
 };
 </script>
 <style scoped>
