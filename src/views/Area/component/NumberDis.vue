@@ -51,7 +51,7 @@ export default {
         //console.log("init china");
         this.initChina();
       }
-      //console.log("nubmer dis data", data);
+      console.log("nubmer dis data", data);
       this.setOption(data);
     },
   },

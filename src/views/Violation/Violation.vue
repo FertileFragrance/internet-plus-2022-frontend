@@ -28,8 +28,8 @@ p{
       <br>
       <el-table :data="business">
         <el-table-column type="index" prop="index" label="排序"></el-table-column>
-        <el-table-column prop="type" label="业务名称"></el-table-column>
-        <el-table-column prop="ratio" label="" width="700">
+        <el-table-column prop="type" label="业务名称" width="500"></el-table-column>
+        <el-table-column prop="ratio" label="" width="400">
           <template slot-scope="scope">
             <el-progress :percentage="Number(scope.row.ratio)"></el-progress>
           </template>
@@ -97,9 +97,6 @@ export default {
         },
         tooltip: {
           trigger: "item",
-        },
-        legend: {
-          left: "left",
         },
         series: [
           {
