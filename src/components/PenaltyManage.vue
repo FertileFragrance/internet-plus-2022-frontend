@@ -128,8 +128,11 @@
           </span>
           </template>
         </el-table-column>
+
         <el-table-column>
-          <Button class="btn" size="large" @click="onClickEdit">详情</Button>
+                  <template slot-scope="scope">
+                    <Button class="btn" size="large" @click="onClickCheck(scope.row)">详情</Button>
+                  </template>
         </el-table-column>
       </el-table>
       <el-pagination
@@ -385,20 +388,17 @@ export default {
         }
       }
     },
-    onClickCheck() {
-      if (this.selectIdList.length < 1) {
-        this.$message.error("请选择需要修改的条目！");
-      } else if (this.selectIdList.length > 1) {
-        this.$message.error("所选择条目数量大于1！");
-      } else {
-        for (let i = 0; i < this.tableData.length; i++) {
-          if (this.tableData[i].id === this.selectIdList[0]) {
-            this.editModel = JSON.parse(JSON.stringify(this.tableData[i]));
-            this.editDialogVisible = true;
-            break;
-          }
+    onClickCheck(row) {
+      // console.log(row)
+      let detail = row
+      //console.log(detail)
+      this.$router.push({
+        path: '/Check',
+        query: {
+          pid: detail
         }
-      }
+      })
+      
     },
     editPunishment() {
       const data = this.editModel;

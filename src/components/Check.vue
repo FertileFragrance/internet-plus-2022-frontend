@@ -7,98 +7,97 @@
         </Breadcrumb>
     <div class="detail-container">
         <div class="detail-container-left">
+
             <div class="detail-container-left-box">
             <el-descriptions class="margin-top" :column="2" border direction="vertical">
                 <el-descriptions-item span="2">
                     <template slot="label">
                         <i class="el-icon-star-on"></i>
                         行政处罚名称
-                    </template>
-                    <div class="content">
-                        {{ detail.name || '无' }}
-                    </div>
+                    </template>{{detailInfo.name}}
+
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-s-promotion"></i>
                         行政处罚决定文号
                     </template>
-                    <div class="content">
-                        {{ detail.number || '无' }}
-                    </div>
+
+                  {{detailInfo.number || '无' }}
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-s-promotion"></i>
                         处罚类型
                     </template>
+
                     <div class="content">
-                        <span v-if="detail.type === '0'">个人</span>
-                        <span v-if="detail.type === '1'">单位</span>
+                        <span v-if="detailInfo.type === '0'">个人</span>
+                        <span v-if="detailInfo.type === '1'">单位</span>
                     </div>
+
                 </el-descriptions-item>
                 <el-descriptions-item  span="2">
                     <template slot="label">
                         <i class="el-icon-s-promotion"></i>
                         被罚当事人名称
                     </template>
-                    <div class="content">
-                        {{ detail.partyName || '无' }}
-                    </div>
+
+                  {{detailInfo.partyName || '无' }}
+
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-s-promotion"></i>
                         主要负责人姓名
                     </template>
-                    <div class="content">
-                        {{ detail.responsiblePersonName || '无' }}
-                    </div>
+                  {{detailInfo.responsiblePersonName || '无' }}
+
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-s-promotion"></i>
                         处罚时间
                     </template>
-                    <div class="content">
-                        {{ detail.date || '无' }}
-                    </div>
+
+                  {{detailInfo.date || '无' }}
+
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-s-promotion"></i>
                         行政处罚决定
                     </template>
-                    <div class="content">
-                        {{ detail.decision || '无' }}
-                    </div>
+
+                  {{detailInfo.decision || '无'}}
+
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template slot="label">
                         <i class="el-icon-s-promotion"></i>
                         行政处罚的机关名称
                     </template>
-                    <div class="content">
-                        {{ detail.organName || '无' }}
-                    </div>
+
+                  {{detailInfo.organName || '无'}}
+
                 </el-descriptions-item>
                 <el-descriptions-item  span="2">
                     <template slot="label">
                         <i class="el-icon-s-promotion"></i>
                         主要违法违规事实（案由）
                     </template>
-                    <div class="content">
-                        {{ detail.facts || '无' }}
-                    </div>
+
+                  {{detailInfo.facts || '无'}}
+
                 </el-descriptions-item>
                 <el-descriptions-item  span="2">
                     <template slot="label">
                         <i class="el-icon-s-promotion"></i>
                         行政处罚依据
                     </template>
-                    <div class="content">
-                        {{ detail.basis || '无' }}
-                    </div>
+
+                  {{detailInfo.basis || '无'}}
+
                 </el-descriptions-item>
             </el-descriptions>
             </div>
@@ -152,6 +151,7 @@
 </template>
 
 <script>
+    // import axios from "axios";
     export default {
         data() {
             return {
@@ -231,6 +231,20 @@
                 total: 10,
                 pageSize: 1,
                 currentPage: 1,
+              detailInfo:{
+                id: '',
+                name: '', //行政处罚名称
+                number: ',',//行政处罚决定文号
+                type: '',//罚类型//只有"personal","organization"两种
+                partyName: '',//当事人名称
+                responsiblePersonName: '',//要负责人姓名
+                facts:'',//要违法违规事实（案由）
+                basis: '',//处罚依据
+                decision: '',
+                organName:'',
+                date:'',
+                status:''
+              },
             }
         },
         methods: {
@@ -250,8 +264,23 @@
                     this.tableData.push(this.totalData[(this.currentPage-1)*this.pageSize+i])
                 }
             },
-        }
+          goBack () {
+            this.$router.back(-1)
+          }
+        },
+
+      name: "Check",
+
+      created () {
+        const res = this.$route.query.pid;
+         // console.log(res.name)
+        this.detailInfo = res
+        console.log(this.detailInfo)
+      },
+
     }
+
+
 </script>
 
 <style>
