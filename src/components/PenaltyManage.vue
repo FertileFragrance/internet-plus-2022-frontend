@@ -128,6 +128,9 @@
           </span>
           </template>
         </el-table-column>
+        <el-table-column>
+          <Button class="btn" size="large" @click="onClickEdit">详情</Button>
+        </el-table-column>
       </el-table>
       <el-pagination
           @size-change="handleSizeChange"
@@ -368,6 +371,21 @@ export default {
       });
     },
     onClickEdit() {
+      if (this.selectIdList.length < 1) {
+        this.$message.error("请选择需要修改的条目！");
+      } else if (this.selectIdList.length > 1) {
+        this.$message.error("所选择条目数量大于1！");
+      } else {
+        for (let i = 0; i < this.tableData.length; i++) {
+          if (this.tableData[i].id === this.selectIdList[0]) {
+            this.editModel = JSON.parse(JSON.stringify(this.tableData[i]));
+            this.editDialogVisible = true;
+            break;
+          }
+        }
+      }
+    },
+    onClickCheck() {
       if (this.selectIdList.length < 1) {
         this.$message.error("请选择需要修改的条目！");
       } else if (this.selectIdList.length > 1) {
