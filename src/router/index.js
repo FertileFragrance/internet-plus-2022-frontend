@@ -16,6 +16,12 @@ const routes = [
         component: () => import("@/components/PenaltyManage"),
       },
       {
+        //查看详情
+        path: "/check",
+        name: "Check",
+        component: () => import("@/components/Check"),
+      },
+      {
         //监管动态
         path: "/trend",
         name: "trend",
