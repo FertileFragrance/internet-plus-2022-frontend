@@ -1,7 +1,25 @@
 import { axios } from "../utils/request";
 const api = {
   pre: "penalty",
+  pre1: "match",
+  pre2: "policy"
 };
+
+export function queryByPenaltyIdAPI(ByPenaltyId) {
+  return axios({
+    url: `${api.pre1}/queryByPenaltyId/${ByPenaltyId}`,
+    method: "Get",
+  });
+}
+
+export function queryByPolicyIdAPI(id) {
+  return axios({
+    url: `${api.pre2}/queryById/${id}`,
+    method: "Get",
+  });
+}
+
+
 export function createPunishmentAPI(data) {
   return axios({
     url: `${api.pre}/createPunishment`,
