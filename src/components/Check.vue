@@ -104,8 +104,8 @@
             </div>
         </div>
         <div class="detail-container-right" >
-            <h2>相似法规条例</h2>
-            <template>
+            <h2 style="margin: 15px">相似法规条例</h2>
+            <template v-if="list===true">
                 <el-table
                         :data="tableData"
                         height="250"
@@ -128,6 +128,7 @@
                     </el-table-column>
                 </el-table>
                 <el-pagination
+                        style="margin-left: 5%"
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
                         :current-page.sync="currentPage"
@@ -138,6 +139,13 @@
                 >
                 </el-pagination>
             </template>
+            <template v-else>
+                <el-pager
+                        max-height="600px"
+                        border>
+
+                </el-pager>
+            </template>
         </div>
     </div>
     </div>
@@ -147,6 +155,7 @@
     export default {
         data() {
             return {
+                list: true,
                 detail:{
                     id: "1",
                     name: "string", //行政处罚名称
