@@ -125,6 +125,11 @@
                             label="匹配度"
                             width="100"
                             align='center'>
+                        <template slot-scope="scope">
+                                <div slot="reference" class="content1">
+                                    {{(scope.row.cosine*100.00).toFixed(2) + '%'}}
+                                </div>
+                        </template>
                     </el-table-column>
                     <el-table-column
                             prop="content"
@@ -193,7 +198,7 @@
                             <i class="el-icon-s-promotion"></i>
                             匹配度
                         </template>
-                        {{policyDetail.cosine || '无' }}
+                        {{(policyDetail.cosine*100.00000).toFixed(5) + '%' || '无' }}
 
                     </el-descriptions-item>
                     <el-descriptions-item   span="2">
@@ -411,19 +416,17 @@
             },
             getQueryList(){
                 const data = this.detailInfo.id;
-                console.log(data);
-                axios.get("match/queryByPenaltyId?penaltyId="+data).then(((res) =>{
-                  console.log(res.data)
-                  this.queryList = res.data
-                  console.log(this.queryList)
-
-
-                  for (let i = 0; i < this.queryList.length; i++) {
-                    this.getPolicyDetail(this.queryList[i].innerPolicyId , i);
+                // console.log(data);
+                axios.get("match/queryByPenaltyId?penaltyId="+data).then(((res) => {
                     // console.log(res.data)
-                  }
+                    this.queryList = res.data
 
-                }))
+                    this.total = this.queryList.length;
+                    for (let i = 0; i < this.queryList.length; i++) {
+                        this.getPolicyDetail(this.queryList[i].innerPolicyId, i);
+                    }
+
+                }));
             },
 
             getPolicyDetail(id , i){
@@ -440,17 +443,20 @@
                  policy.ranking = this.queryList[i].ranking;
                  policy.cosine = this.queryList[i].cosine;
                  // console.log(this.temp)
-                 console.log(policy)
+                 // console.log(policy)
                  this.queryDetailList.push(policy);
-                 console.log(this.queryDetailList)
+                 // console.log(this.queryDetailList)
+                   this.queryDetailList.sort((a,b)=>{
+                       return a.ranking - b.ranking
+                   });
               }));
 
             },
 
 
-            getQueryDetailList(){
+            getQueryDetailList() {
                 this.queryDetailList = [];
-                console.log(this.tableData.length)
+                // console.log(this.tableData.length)
                 this.getQueryList();
 
             }
