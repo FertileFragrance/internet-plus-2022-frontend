@@ -8,6 +8,9 @@ import * as echarts from "echarts";
 import store from "./store";
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
+import axios from "axios";
+axios.defaults.baseURL = '/api'
+
 //注入echarts全局
 Vue.prototype.$echarts = echarts;
 
