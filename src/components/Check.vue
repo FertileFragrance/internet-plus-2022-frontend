@@ -376,7 +376,8 @@
                     chapter:   "第一章  总则",
                     ranking:   1,
                     cosine:   0.4,
-                }
+                },
+                temp:[]
             }
         },
         methods: {
@@ -411,40 +412,39 @@
             getQueryList(){
                 const data = this.detailInfo.id;
                 console.log(data);
-                // queryByPenaltyIdAPI(data).then((res) => {
-                //     if (res.code === "0") {
-                //       this.queryList = res.data;
-                //     } else {
-                //         this.$message.error(res.msg);
-                //     }
-                // });
-                axios.get("api/match/queryByPenaltyId?penaltyId="+data).then(((res) =>{
-                  if (res.code === "0") {
-                    this.queryList = res.data;
-                  } else {
-                    this.$message.error(res.msg);
+                axios.get("match/queryByPenaltyId?penaltyId="+data).then(((res) =>{
+                  console.log(res.data)
+                  this.queryList = res.data
+                  console.log(this.queryList)
+
+
+                  for (let i = 0; i < this.queryList.length; i++) {
+                    this.getPolicyDetail(this.queryList[i].innerPolicyId , i);
+                    // console.log(res.data)
                   }
+
                 }))
             },
 
-            getPolicyDetail(id){
-                console.log(id);
-                let re = {};
-                // queryByPolicyIdAPI(id).then((res) => {
-                //     if (res.code === "0") {
-                //         this.re = res.data;
-                //     } else {
-                //         this.$message.error(res.msg);
-                //     }
-                // });
-              axios.get("api/policy/queryById?id="+id).then(((res) =>{
-                if (res.code === "0") {
-                  this.queryList = res.data;
-                } else {
-                  this.$message.error(res.msg);
-                }
+            getPolicyDetail(id , i){
+                // console.log(id);
+               axios.get("policy/queryById?id="+id).then(((res) =>{
+                  this.temp = res.data
+                 let policy = {};
+                 policy.id = this.temp.id;
+                 policy.file = this.temp.file;
+                 policy.department = this.temp.department;
+                 policy.article = this.temp.article;
+                 policy.content = this.temp.content;
+                 policy.chapter = this.temp.chapter;
+                 policy.ranking = this.queryList[i].ranking;
+                 policy.cosine = this.queryList[i].cosine;
+                 // console.log(this.temp)
+                 console.log(policy)
+                 this.queryDetailList.push(policy);
+                 console.log(this.queryDetailList)
               }));
-                return re;
+
             },
 
 
@@ -453,21 +453,6 @@
                 console.log(this.tableData.length)
                 this.getQueryList();
 
-                for (let i = 0; i < this.queryList.length; i++) {
-                    let res = this.getPolicyDetail(this.queryList[i].innerPolicyId);
-
-                    let policy = {};
-                    policy.id = res.id;
-                    policy.file = res.file;
-                    policy.department = res.file;
-                    policy.article = res.file;
-                    policy.content = res.file;
-                    policy.chapter = res.file;
-                    policy.ranking = this.queryList[i].ranking;
-                    policy.cosine = this.queryList[i].cosine;
-
-                    this.queryDetailList.push(policy);
-                }
             }
         },
 
