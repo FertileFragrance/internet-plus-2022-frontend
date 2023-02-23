@@ -213,8 +213,8 @@
 </template>
 
 <script>
-    // import axios from "axios";
-    import {queryByPenaltyIdAPI,queryByPolicyIdAPI} from "../api/api";
+    // import {queryByPolicyIdAPI} from "../api/api";
+    import axios from "axios";
 
     export default {
         data() {
@@ -411,30 +411,49 @@
             getQueryList(){
                 const data = this.detailInfo.id;
                 console.log(data);
-                queryByPenaltyIdAPI(data).then((res) => {
-                    if (res.code === "0") {
-                      this.queryList = res.data;
-                    } else {
-                        this.$message.error(res.msg);
-                    }
-                });
+                // queryByPenaltyIdAPI(data).then((res) => {
+                //     if (res.code === "0") {
+                //       this.queryList = res.data;
+                //     } else {
+                //         this.$message.error(res.msg);
+                //     }
+                // });
+                axios.get("api/match/queryByPenaltyId?penaltyId="+data).then(((res) =>{
+                  if (res.code === "0") {
+                    this.queryList = res.data;
+                  } else {
+                    this.$message.error(res.msg);
+                  }
+                }))
             },
+
             getPolicyDetail(id){
                 console.log(id);
                 let re = {};
-                queryByPolicyIdAPI(id).then((res) => {
-                    if (res.code === "0") {
-                        this.re = res.data;
-                    } else {
-                        this.$message.error(res.msg);
-                    }
-                });
+                // queryByPolicyIdAPI(id).then((res) => {
+                //     if (res.code === "0") {
+                //         this.re = res.data;
+                //     } else {
+                //         this.$message.error(res.msg);
+                //     }
+                // });
+              axios.get("api/policy/queryById?id="+id).then(((res) =>{
+                if (res.code === "0") {
+                  this.queryList = res.data;
+                } else {
+                  this.$message.error(res.msg);
+                }
+              }));
                 return re;
             },
+
+
             getQueryDetailList(){
                 this.queryDetailList = [];
+                console.log(this.tableData.length)
                 this.getQueryList();
-                for (let i = 0; i < this.queryList.size(); i++) {
+
+                for (let i = 0; i < this.queryList.length; i++) {
                     let res = this.getPolicyDetail(this.queryList[i].innerPolicyId);
 
                     let policy = {};
@@ -458,9 +477,9 @@
         },
         created () {
         const res = this.$route.query.pid;
-         // console.log(res.name)
+         // console.log(res.id)
         this.detailInfo = res;
-        console.log(this.detailInfo);
+        // console.log(this.detailInfo);
       },
 
     }
